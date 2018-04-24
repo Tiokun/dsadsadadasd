@@ -6,6 +6,7 @@ Color Color::Red(255, 0, 0, 255);
 Color Color::Green(0, 128, 0, 255);
 Color Color::Blue(0, 0, 255, 255);
 Color Color::Error(255, 0, 220, 255);
+Color Color::Legitware(0, 153, 255, 255);
 
 Color::Color()
 {

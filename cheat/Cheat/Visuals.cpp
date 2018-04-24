@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iterator>
 #include <vector>
+#include "../Core/Hooks.h"
 
 void Visuals::PaintTraverse()
 {
@@ -168,12 +169,19 @@ void Visuals::NightMode()
 void Visuals::DrawModelExecute(IMatRenderContext* ctx, const DrawModelState_t &state, const ModelRenderInfo_t &info, matrix3x4_t* matrix)
 {
 	const auto model = info.pModel;
+    static auto fnDME = Hooks::MDLRenderHook.get_original<Hooks::DrawModelExecute>(Index::DrawModelExecute);
+
 
 	auto texturedColor = g_MatSystem->FindMaterial("simple_regular", TEXTURE_GROUP_MODEL); //textured color chams
 	auto flatColor = g_MatSystem->FindMaterial("simple_flat", TEXTURE_GROUP_MODEL); //flat color chams
 	if (strstr(model->szName, "models/player") != nullptr)
 	{
 		auto pEntity = C_BasePlayer::GetPlayerByIndex(info.entity_index);
+
+        const auto enemy = pEntity->m_iTeamNum() != g_LocalPlayer->m_iTeamNum();
+
+            const auto clr_front = enemy ? Color::Legitware : Color::Legitware;
+            const auto clr_back = enemy ? Color::Red : Color::Red;
 
 		if (pEntity
 			&& !pEntity->IsDormant()
@@ -183,36 +191,41 @@ void Visuals::DrawModelExecute(IMatRenderContext* ctx, const DrawModelState_t &s
 
 			if (g_Options.VIS_Chams)
 			{
-				switch (g_Options.MISC_ChamsType)
-				{
-				case 0: {
-					texturedColor->ColorModulate(g_Options.CHAMS[0], g_Options.CHAMS[1], g_Options.CHAMS[2]);
-					texturedColor->AlphaModulate(1.f);
-					g_ModelRender->ForcedMaterialOverride(texturedColor);
-				}
-						break;
-				case 1: {
-					flatColor->ColorModulate(g_Options.CHAMS[0], g_Options.CHAMS[1], g_Options.CHAMS[2]);
-					flatColor->AlphaModulate(1.f);
-					g_ModelRender->ForcedMaterialOverride(flatColor);
-				}
-						break;
-				case 2: {
-					float hp = pEntity->m_iHealth();
-					texturedColor->ColorModulate(1.f - float(hp / 100), float(hp / 100), 0.f);
-					texturedColor->AlphaModulate(1.f);
-					g_ModelRender->ForcedMaterialOverride(texturedColor);
-				}
-						break;
-				}
+					//texturedColor->ColorModulate(g_Options.CHAMS[0], g_Options.CHAMS[1], g_Options.CHAMS[2]);
+					//texturedColor->AlphaModulate(1.f);
+					//g_ModelRender->ForcedMaterialOverride(texturedColor);
+
+
+                OverrideMaterial(true, g_Options.chams_player_flat, g_Options.chams_player_wireframe, false, clr_back);
+                fnDME(g_ModelRender, ctx, state, info, matrix);
+                OverrideMaterial(false, g_Options.chams_player_flat, g_Options.chams_player_wireframe, false, clr_front);
 			}
 
 		}
-	}
+    }
 	else
 	{
 
 	}
+}
+
+void Visuals::OverrideMaterial(bool ignoreZ, bool flat, bool wireframe, bool glass, const Color& rgba)
+{
+    IMaterial* material = nullptr;
+
+    if(flat) {
+        if(ignoreZ)
+            material = materialFlatIgnoreZ;
+        else
+            material = materialFlat;
+    } else {
+        if(ignoreZ)
+            material = materialRegularIgnoreZ;
+        else
+            material = materialRegular;
+    }
+
+    g_ModelRender->ForcedMaterialOverride(material);
 }
 
 void Visuals::Overlay()

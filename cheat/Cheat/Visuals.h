@@ -17,4 +17,12 @@ class Visuals : public Singleton<Visuals>
 public:
 	void PaintTraverse();
 	void DrawModelExecute(IMatRenderContext * ctx, const DrawModelState_t &state, const ModelRenderInfo_t &info, matrix3x4_t *matrix);
+
+private:
+    void OverrideMaterial(bool ignoreZ, bool flat, bool wireframe, bool glass, const Color& rgba);
+
+    IMaterial* materialRegular = nullptr;
+    IMaterial* materialRegularIgnoreZ = nullptr;
+    IMaterial* materialFlatIgnoreZ = nullptr;
+    IMaterial* materialFlat = nullptr;
 };

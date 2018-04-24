@@ -14,7 +14,6 @@ void Menu::Init()
 	auto Visuals = new CChild(0, 0, 120, L"Visuals");
 
 	Visuals->AddControl(new CCheckBox(L"Chams", &g_Options.VIS_Chams));
-	Visuals->AddControl(new CCombo(&g_Options.MISC_ChamsType, { L"Normal", L"Flat", L"Health Based" }));
 	Visuals->AddControl(new CCheckBox(L"ESP", &g_Options.VIS_ESP));
 	Visuals->AddControl(new CCheckBox(L"Name", &g_Options.VIS_ESP_Name));
 	Visuals->AddControl(new CCheckBox(L"Health", &g_Options.VIS_ESP_Health));

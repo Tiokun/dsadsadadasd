@@ -59,6 +59,7 @@ public:
 	static Color Green;
 	static Color Blue;
 	static Color Error;
+    static Color Legitware;
 
 private:
 	unsigned char _CColor[4];

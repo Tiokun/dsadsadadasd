@@ -4,6 +4,8 @@
 #include "math.h"
 #include "../Menu/Menu.h"
 
+
+
 namespace Hooks
 {
 	vfunc_hook HLClientHook;
@@ -16,6 +18,7 @@ namespace Hooks
 	vfunc_hook GameEventManagerHook;
 	vfunc_hook MatSystemHook;
 	RecvPropHook* SequenceHook;
+
 
 	void Initialize()
 	{

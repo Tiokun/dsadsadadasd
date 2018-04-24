@@ -72,14 +72,14 @@ void CWindow::Paint(int t_x, int t_y, float* controlheight)
 			m_dragoffsety = cur_y - m_y;
 		}
 
-	Draw::FilledRectangle(tl.x, tl.y - 16, br.x, br.y, Color(100, 0, 0, 135));
-	Draw::Rectangle(tl.x, tl.y - 16, br.x, br.y, Color(50, 5, 5));
-	Draw::Rectangle(tl.x + 1, tl.y - 15, br.x - 1, br.y - 1, Color(200, 10, 10));
+	Draw::FilledRectangle(tl.x, tl.y - 16, br.x, br.y, Color::Legitware); // Titel Rand
+	Draw::Rectangle(tl.x, tl.y - 16, br.x, br.y, Color::Legitware); // Mitte
+	Draw::Rectangle(tl.x + 1, tl.y - 15, br.x - 1, br.y - 1, Color::Legitware); // Außen
 	tl += 6;
 	br -= 6;
-	Draw::FilledGradientRectangle(tl.x, tl.y, br.x, br.y, Color(238, 238, 238), Color(210, 210, 210));
-	Draw::Rectangle(tl, br, Color(50, 5, 5));
-	Draw::Rectangle(tl.x - 1, tl.y - 1, br.x + 1, br.y + 1, Color(200, 10, 10));
+	Draw::FilledGradientRectangle(tl.x, tl.y, br.x, br.y, Color(111, 111, 111), Color(111, 111, 111)); // Background
+	Draw::Rectangle(tl, br, Color(0, 153, 255));
+	Draw::Rectangle(tl.x - 1, tl.y - 1, br.x + 1, br.y + 1, Color::Legitware);
 
 	Draw::Text(tl.x + 3, tl.y - 17, L"LegitWare Lite", Font::Get().MenuText, Color::White);
 
@@ -124,9 +124,9 @@ void CChild::Paint(int t_x, int t_y, float* controlheight)
 	auto textSize = Draw::GetTextSize(m_title.data(), Font::Get().MenuText);
 
 	// background
-	Draw::FilledGradientRectangle(tl.x, tl.y, br.x, br.y, Color(210, 210, 210), Color(238, 238, 238));
+	Draw::FilledGradientRectangle(tl.x, tl.y, br.x, br.y, Color(111, 111, 111), Color(111, 111, 111));
 
-	const Color color(180, 180, 180);
+	const Color color(111, 111, 111);
 
 	// top
 	Draw::Line(tl.x, tl.y, tl.x + 8, tl.y, color);
@@ -138,7 +138,7 @@ void CChild::Paint(int t_x, int t_y, float* controlheight)
 	// left
 	Draw::Line(tl.x, tl.y, tl.x, br.y, color);
 
-	Draw::Text(tl.x + 14, tl.y, m_title.data(), Font::Get().MenuText, Color::Black, false, true);
+	Draw::Text(tl.x + 14, tl.y, m_title.data(), Font::Get().MenuText, Color::White, false, true);
 
 	m_controlheight = 0;
 	for (auto o : Objects)
@@ -231,8 +231,8 @@ void CCheckBox::Paint(int t_x, int t_y, float* controlheight)
 	Draw::FilledGradientRectangle(tl.x, tl.y, br.x, br.y, border_top, border_bottom);
 	Draw::FilledGradientRectangle(tl.x + 1, tl.y + 1, br.x - 1, br.y - 1, top, bottom);
 	if (m_val != nullptr && *m_val)
-		Draw::Text(tl.x + (size / 2) + 1, tl.y + (size / 2), L"✔", Font::Get().MenuText, Color::Red, true);
-	Draw::Text(br.x + 4, tl.y - 1, m_label.data(), Font::Get().MenuText, Color::Black);
+		Draw::Text(tl.x + (size / 2) + 1, tl.y + (size / 2), L"\u2B24", Font::Get().MenuText, Color::Legitware, true);
+	Draw::Text(br.x + 4, tl.y - 1, m_label.data(), Font::Get().MenuText, Color::White);
 	*controlheight += size + MENU_PADDING;
 }
 
@@ -278,7 +278,7 @@ inline void CSlider<T>::Paint(int t_x, int t_y, float* controlheight)
 	}
 
 	Draw::FilledRectangle(tl.x, tl.y + 3, br.x, br.y - 3, Color(237));
-	Draw::FilledRectangle(tl.x, tl.y + 3, valueX, br.y - 3, Color(180, 0, 0));
+	Draw::FilledRectangle(tl.x, tl.y + 3, valueX, br.y - 3, Color::Legitware);
 	Draw::Rectangle(tl.x, tl.y + 3, br.x, br.y - 3, Color(141));
 
 	Draw::FilledGradientRectangle(valueX - 4, tl.y + 1, valueX + 4, br.y - 1, Color(208), Color(125));
@@ -286,7 +286,7 @@ inline void CSlider<T>::Paint(int t_x, int t_y, float* controlheight)
 
 	wchar_t buffer[30];
 	swprintf(buffer, 30, L"%s (%s)", m_label.data(), Utilities::to_wstring(*m_val, 2).data());
-	Draw::Text(br.x + 9, tl.y, buffer, Font::Get().MenuText, Color::Black);
+	Draw::Text(br.x + 9, tl.y, buffer, Font::Get().MenuText, Color::White);
 	*controlheight += height + MENU_PADDING;
 }
 
@@ -338,7 +338,7 @@ void CButton::Paint(int t_x, int t_y, float* controlheight)
 	Draw::FilledGradientRectangle(tl.x, tl.y, br.x, br.y, border_top, border_bottom);
 	Draw::FilledGradientRectangle(tl.x + 1, tl.y + 1, br.x - 1, br.y - 1, top, bottom);
 
-	Draw::Text(tl.x + (m_width / 2), tl.y + (m_height / 2), m_label.data(), Font::Get().MenuText, Color::Black, true);
+	Draw::Text(tl.x + (m_width / 2), tl.y + (m_height / 2), m_label.data(), Font::Get().MenuText, Color(0, 153, 255), true);
 	*controlheight += m_height + MENU_PADDING;
 }
 
@@ -384,7 +384,7 @@ void CTextBox::Paint(int t_x, int t_y, float* controlheight)
 
 	if (m_val != nullptr && m_val->length() > 0)
 	{
-		Draw::Text(m_tl.x + 4, m_tl.y + (m_height / 2), m_val->data(), Font::Get().MenuText, Color::Black, false, true);
+		Draw::Text(m_tl.x + 4, m_tl.y + (m_height / 2), m_val->data(), Font::Get().MenuText, Color::White, false, true);
 
 		if (m_selected && (int)(g_GlobalVars->realtime * 10) % 2 == 0)
 		{
@@ -392,14 +392,14 @@ void CTextBox::Paint(int t_x, int t_y, float* controlheight)
 			auto tl = m_tl + Vector2D(TextSize.x, 0);
 			auto br = m_br + Vector2D(TextSize.x, 0);
 
-			Draw::FilledRectangle(tl.x + 4, tl.y + 3, tl.x + 6, br.y - 3, Color::Black);
+			Draw::FilledRectangle(tl.x + 4, tl.y + 3, tl.x + 6, br.y - 3, Color::White);
 		}
 	} else if (!m_selected)
 	{
 		Draw::Text(m_tl.x + 4, m_tl.y + (m_height / 2), m_placeholder.data(), Font::Get().MenuText, Color(100), false, true);
 	} else if (m_selected && (int)(g_GlobalVars->realtime * 2) % 2 == 0)
 	{
-		Draw::FilledRectangle(m_tl.x + 4, m_tl.y + 3, m_tl.x + 6, m_br.y - 3, Color::Black);
+		Draw::FilledRectangle(m_tl.x + 4, m_tl.y + 3, m_tl.x + 6, m_br.y - 3, Color::White);
 	}
 	*controlheight += m_height + MENU_PADDING;
 }
@@ -474,7 +474,7 @@ void CCombo::Paint(int t_x, int t_y, float * controlheight)
 			else color = MENU_COLOR_CONTROL;
 			Draw::FilledRectangle(tl, br, color);
 			Draw::Rectangle(tl, br, MENU_COLOR_CONTROL_BORDER);
-			Draw::Text(tl.x + (height / 2), tl.y + (height / 2), L"◄", Font::Get().MenuText, Color::White, true);
+			Draw::Text(tl.x + (height / 2), tl.y + (height / 2), L"\u25C4", Font::Get().MenuText, Color::White, true);
 		}
 
 		{ // Right button
@@ -487,7 +487,7 @@ void CCombo::Paint(int t_x, int t_y, float * controlheight)
 			else color = MENU_COLOR_CONTROL;
 			Draw::FilledRectangle(tl, br, color);
 			Draw::Rectangle(tl, br, MENU_COLOR_CONTROL_BORDER);
-			Draw::Text(tl.x + (height / 2) + 1, tl.y + (height / 2), L"►", Font::Get().MenuText, Color::White, true);
+			Draw::Text(tl.x + (height / 2) + 1, tl.y + (height / 2), L"\u25BA", Font::Get().MenuText, Color::White, true);
 		}
 
 		Draw::Text(r_tl.x + (width / 2), r_tl.y + (height / 2), m_labels.at(*m_val).data(), Font::Get().MenuText, Color::White, true);

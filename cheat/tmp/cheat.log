@@ -1,4 +1,18 @@
-﻿  Visuals.cpp
+﻿  FireEventClientSide.cpp
+  SequenceProxy.cpp
+  Skinchanger.cpp
+  StickerChanger.cpp
+  TimeWarp.cpp
+  Visuals.cpp
+  CreateMove.cpp
+  dllmain.cpp
+  DrawModelExecute.cpp
+  Hooks.cpp
+  InputSys.cpp
+  PaintTraverse.cpp
+  Utilities.cpp
+  GUI.cpp
   Menu.cpp
-  Code wird generiert...
-  cheat.vcxproj -> C:\Users\world\OneDrive\Desktop\LegitWare Lite\cheat\..\Release\LegitWare.dll
+  csgostructs.cpp
+  Generating Code...
+  cheat.vcxproj -> C:\Users\huber\Desktop\LegitWare_Lite (1)\LegitWare Lite\cheat\..\Release\LegitWare.dll

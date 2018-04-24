@@ -39,10 +39,10 @@ void Cheat(LPVOID lpReserved)
 		g_Options.VIS_ESP = !g_Options.VIS_ESP;
 	});
 
-	//InputSys::Get().RegisterHotkey(VK_DELETE, [lpReserved]()
-	//{
-	//	Die = true;
-	//});
+	InputSys::Get().RegisterHotkey(VK_DELETE, [lpReserved]()
+	{
+		Die = true;
+	});
 
 	Utilities::ConsolePrint("Ready!");
 
